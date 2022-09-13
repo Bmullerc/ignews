@@ -10,7 +10,7 @@ type User = {
     id: string
   }
   data: {
-    stripe_custumer_id: string
+    stripe_customer_id: string
   }
 }
 
@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       )
     )
 
-    let customerId = user.data.stripe_custumer_id
+    let customerId = user.data.stripe_customer_id
 
     if (!customerId) {
       const stripeCustomer = await stripe.customers.create({
@@ -40,7 +40,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           q.Ref(q.Collection('users'), user.ref.id),
           {
             data: {
-              stripe_custumer_id: stripeCustomer.id
+              stripe_customer_id: stripeCustomer.id
             }
           }
         )
